@@ -210,7 +210,7 @@ export function PerQuestionQuiz({
           setFeedback("");
         }}
       />
-      <p className="text-sm font-semibold text-[var(--jjs-green-800)]">
+      <p className="text-sm font-semibold text-[var(--green-800)]">
         Score: {correctCount}/{n} ({scorePercent}%)
       </p>
     </div>

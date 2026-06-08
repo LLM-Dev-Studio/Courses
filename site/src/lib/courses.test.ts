@@ -3,9 +3,9 @@ import { mergeCourseMetadata } from "@/lib/courses";
 describe("mergeCourseMetadata", () => {
   it("keeps manifest values when the intro override is undefined", () => {
     const manifest = {
-      title: "AI for JJ's Waste & Recycling",
+      title: "AI for Business",
       subtitle: "Practical AI",
-      audience: "JJ's teams",
+      audience: "Staff",
     };
     const intro = {
       title: undefined,

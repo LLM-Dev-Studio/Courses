@@ -42,7 +42,7 @@ export default function HomeAvailableCourses({ courses }: { courses: HomeCourseS
 
   if (availableCourses.length === 0) {
     return (
-      <div className="mt-4 rounded-2xl border border-[var(--jjs-sand-300)] bg-white p-5 text-sm text-[var(--jjs-green-800)] shadow-sm">
+      <div className="mt-4 rounded-2xl border border-[var(--sand-300)] bg-white p-5 text-sm text-[var(--green-800)] shadow-sm">
         All courses are currently closed. Visit the catalog to review completed courses.
       </div>
     );
@@ -53,22 +53,22 @@ export default function HomeAvailableCourses({ courses }: { courses: HomeCourseS
       {availableCourses.map((course) => (
         <article
           key={course.id}
-          className="rounded-2xl border border-[var(--jjs-sand-300)] bg-white p-5 shadow-sm"
+          className="rounded-2xl border border-[var(--sand-300)] bg-white p-5 shadow-sm"
         >
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--jjs-green-700)]">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--green-700)]">
             {course.totalLessons} lessons
           </p>
           <h3 className="mt-1 text-lg font-bold">{course.title}</h3>
           {course.subtitle ? (
-            <p className="mt-2 text-sm text-[var(--jjs-green-800)]">{course.subtitle}</p>
+            <p className="mt-2 text-sm text-[var(--green-800)]">{course.subtitle}</p>
           ) : null}
           {course.audience ? (
-            <p className="mt-2 text-sm text-[var(--jjs-green-700)]">Audience: {course.audience}</p>
+            <p className="mt-2 text-sm text-[var(--green-700)]">Audience: {course.audience}</p>
           ) : null}
 
           <div className="mt-4">
             <Link
-              className="inline-flex items-center rounded-lg bg-[var(--jjs-green-800)] px-4 py-2 text-sm font-semibold !text-white hover:bg-[var(--jjs-green-700)]"
+              className="inline-flex items-center rounded-lg bg-[var(--green-800)] px-4 py-2 text-sm font-semibold !text-white hover:bg-[var(--green-700)]"
               href={`/courses/${course.id}`}
             >
               Start Course

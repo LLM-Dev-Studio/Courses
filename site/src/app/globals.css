@@ -4,21 +4,21 @@
   --background: #faf7f1;
   --foreground: #18281c;
 
-  --jjs-green-900: #18281c;
-  --jjs-green-800: #253c29;
-  --jjs-green-700: #2f4033;
-  --jjs-green-600: #3e5143;
-  --jjs-green-500: #4f6654;
+  --green-900: #18281c;
+  --green-800: #253c29;
+  --green-700: #2f4033;
+  --green-600: #3e5143;
+  --green-500: #4f6654;
 
-  --jjs-earth-700: #7b5e3d;
-  --jjs-earth-600: #93764d;
-  --jjs-earth-500: #a4885a;
+  --earth-700: #7b5e3d;
+  --earth-600: #93764d;
+  --earth-500: #a4885a;
 
-  --jjs-sand-50: #f7f4ef;
-  --jjs-sand-100: #f1ece4;
-  --jjs-sand-200: #e6ded1;
-  --jjs-sand-300: #d3c8b2;
-  --jjs-sand-400: #bca884;
+  --sand-50: #f7f4ef;
+  --sand-100: #f1ece4;
+  --sand-200: #e6ded1;
+  --sand-300: #d3c8b2;
+  --sand-400: #bca884;
 }
 
 @theme inline {
@@ -40,7 +40,7 @@ a:not([class]) {
 }
 
 .markdown-content :where(h1, h2, h3, h4) {
-  color: var(--jjs-green-900);
+  color: var(--green-900);
   font-family: Georgia, "Times New Roman", Times, serif;
   line-height: 1.2;
 }
@@ -100,14 +100,14 @@ a:not([class]) {
 }
 
 .markdown-content :where(a) {
-  color: var(--jjs-green-700);
+  color: var(--green-700);
   text-decoration: underline;
   text-underline-offset: 0.14rem;
 }
 
 .markdown-content :where(code) {
   border-radius: 0.35rem;
-  background: var(--jjs-sand-100);
+  background: var(--sand-100);
   padding: 0.1rem 0.35rem;
   font-family: Consolas, "Courier New", monospace;
   font-size: 0.92em;
@@ -128,7 +128,7 @@ a:not([class]) {
 
 .markdown-content :where(blockquote) {
   margin: 1rem 0;
-  border-left: 4px solid var(--jjs-earth-500);
+  border-left: 4px solid var(--earth-500);
   background: #f9f4ea;
   padding: 0.6rem 1rem;
 }
@@ -140,18 +140,18 @@ a:not([class]) {
 }
 
 .markdown-content :where(th, td) {
-  border: 1px solid var(--jjs-sand-300);
+  border: 1px solid var(--sand-300);
   padding: 0.55rem 0.65rem;
   text-align: left;
 }
 
 .markdown-content :where(th) {
-  background: var(--jjs-sand-100);
-  color: var(--jjs-green-900);
+  background: var(--sand-100);
+  color: var(--green-900);
 }
 
 .markdown-content :where(hr) {
   border: 0;
-  border-top: 1px solid var(--jjs-sand-300);
+  border-top: 1px solid var(--sand-300);
   margin: 1.25rem 0;
 }

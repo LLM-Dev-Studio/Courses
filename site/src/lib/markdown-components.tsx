@@ -39,8 +39,8 @@ const CALLOUT_ICONS: Record<CalloutKind, string> = {
 
 const CALLOUT_CLASSES: Record<CalloutKind, { aside: string; label: string }> = {
   tip: {
-    aside: "border-[var(--jjs-green-600)] bg-[#eaf4ed]",
-    label: "text-[var(--jjs-green-700)]",
+    aside: "border-[var(--green-600)] bg-[#eaf4ed]",
+    label: "text-[var(--green-700)]",
   },
   warning: {
     aside: "border-[#b86b37] bg-[#fbefe5]",
@@ -80,7 +80,7 @@ function CalloutBlock({
         <span className="mr-1 not-italic normal-case">{CALLOUT_ICONS[kind]}</span>
         {CALLOUT_LABELS[kind]}
       </p>
-      <div className="text-[var(--jjs-green-900)]">
+      <div className="text-[var(--green-900)]">
         {inlineContent.length > 0 ? (
           <p key="inline-callout-copy" className="mb-1">
             {inlineContent}
@@ -103,28 +103,28 @@ const MARKER_TO_KIND: Record<string, CalloutKind> = {
 
 export const markdownComponents = {
   h1: ({ children }: { children?: React.ReactNode }) => (
-    <h1 className="mb-4 mt-1 font-[var(--font-heading-serif)] text-3xl font-black text-[var(--jjs-green-900)]">
+    <h1 className="mb-4 mt-1 font-[var(--font-heading-serif)] text-3xl font-black text-[var(--green-900)]">
       {children}
     </h1>
   ),
   h2: ({ children }: { children?: React.ReactNode }) => (
-    <h2 className="mb-3 mt-6 font-[var(--font-heading-serif)] text-2xl font-extrabold text-[var(--jjs-green-900)]">
+    <h2 className="mb-3 mt-6 font-[var(--font-heading-serif)] text-2xl font-extrabold text-[var(--green-900)]">
       {children}
     </h2>
   ),
   h3: ({ children }: { children?: React.ReactNode }) => (
-    <h3 className="mb-2 mt-5 font-[var(--font-heading-serif)] text-xl font-bold text-[var(--jjs-green-900)]">
+    <h3 className="mb-2 mt-5 font-[var(--font-heading-serif)] text-xl font-bold text-[var(--green-900)]">
       {children}
     </h3>
   ),
   p: ({ children }: { children?: React.ReactNode }) => (
-    <p className="mb-4 leading-8 text-[var(--jjs-green-900)]">{children}</p>
+    <p className="mb-4 leading-8 text-[var(--green-900)]">{children}</p>
   ),
   ul: ({ children }: { children?: React.ReactNode }) => (
-    <ul className="mb-4 list-disc space-y-2 pl-6 text-[var(--jjs-green-900)]">{children}</ul>
+    <ul className="mb-4 list-disc space-y-2 pl-6 text-[var(--green-900)]">{children}</ul>
   ),
   ol: ({ children }: { children?: React.ReactNode }) => (
-    <ol className="mb-4 list-decimal space-y-2 pl-6 text-[var(--jjs-green-900)]">{children}</ol>
+    <ol className="mb-4 list-decimal space-y-2 pl-6 text-[var(--green-900)]">{children}</ol>
   ),
   li: ({ children }: { children?: React.ReactNode }) => <li className="leading-7">{children}</li>,
   blockquote: ({ children }: { children?: React.ReactNode }) => {
@@ -140,7 +140,7 @@ export const markdownComponents = {
 
     if (!kind) {
       return (
-        <blockquote className="mb-4 border-l-4 border-[var(--jjs-earth-500)] bg-[var(--jjs-sand-100)] px-4 py-2 italic text-[var(--jjs-green-800)]">
+        <blockquote className="mb-4 border-l-4 border-[var(--earth-500)] bg-[var(--sand-100)] px-4 py-2 italic text-[var(--green-800)]">
           {children}
         </blockquote>
       );
@@ -157,12 +157,12 @@ export const markdownComponents = {
     );
   },
   code: ({ children }: { children?: React.ReactNode }) => (
-    <code className="rounded bg-[var(--jjs-sand-100)] px-1.5 py-0.5 font-mono text-[0.92em]">
+    <code className="rounded bg-[var(--sand-100)] px-1.5 py-0.5 font-mono text-[0.92em]">
       {children}
     </code>
   ),
   pre: ({ children }: { children?: React.ReactNode }) => (
-    <pre className="mb-4 overflow-x-auto rounded-lg bg-[var(--jjs-sand-100)] p-4">{children}</pre>
+    <pre className="mb-4 overflow-x-auto rounded-lg bg-[var(--sand-100)] p-4">{children}</pre>
   ),
   a: ({ href, children }: { href?: string; children?: React.ReactNode }) => {
     const isExternal = Boolean(href && /^https?:\/\//i.test(href));
@@ -172,29 +172,29 @@ export const markdownComponents = {
         href={href}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noreferrer noopener" : undefined}
-        className="inline-flex items-center gap-1 font-medium text-[var(--jjs-green-700)] underline decoration-[var(--jjs-earth-500)] underline-offset-2"
+        className="inline-flex items-center gap-1 font-medium text-[var(--green-700)] underline decoration-[var(--earth-500)] underline-offset-2"
       >
         <span>{children}</span>
         {isExternal ? (
-          <span className="rounded bg-[var(--jjs-sand-100)] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[var(--jjs-green-700)]">
+          <span className="rounded bg-[var(--sand-100)] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[var(--green-700)]">
             External ↗
           </span>
         ) : null}
       </a>
     );
   },
-  hr: () => <hr className="my-6 border-[var(--jjs-sand-300)]" />,
+  hr: () => <hr className="my-6 border-[var(--sand-300)]" />,
   table: ({ children }: { children?: React.ReactNode }) => (
     <div className="mb-4 overflow-x-auto">
       <table className="w-full border-collapse text-left text-sm">{children}</table>
     </div>
   ),
   th: ({ children }: { children?: React.ReactNode }) => (
-    <th className="border border-[var(--jjs-sand-300)] bg-[var(--jjs-sand-100)] px-3 py-2 font-semibold text-[var(--jjs-green-900)]">
+    <th className="border border-[var(--sand-300)] bg-[var(--sand-100)] px-3 py-2 font-semibold text-[var(--green-900)]">
       {children}
     </th>
   ),
   td: ({ children }: { children?: React.ReactNode }) => (
-    <td className="border border-[var(--jjs-sand-300)] px-3 py-2 text-[var(--jjs-green-900)]">{children}</td>
+    <td className="border border-[var(--sand-300)] px-3 py-2 text-[var(--green-900)]">{children}</td>
   ),
 };

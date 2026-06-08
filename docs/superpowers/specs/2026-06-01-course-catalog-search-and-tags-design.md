@@ -70,25 +70,21 @@ This is unit-tested with Vitest in isolation, with no rendering.
 `site/src/app/courses/CourseCatalogGrid.tsx` (already a client component) gains:
 
 - A **search input** at the top — controlled local state, no debounce (the list is small).
-- A **tag chip row** built from the alphabetically-sorted union of all course tags. Chips toggle on click; selected chips use the green accent styling (`--jjs-green-*`). Multi-select, OR.
+- A **tag chip row** built from the alphabetically-sorted union of all course tags. Chips toggle on click; selected chips use the green accent styling (`--green-*`). Multi-select, OR.
 - The grid maps over `filterCourses(courses, { query, selectedTags })` instead of the raw `courses` prop.
 - An **empty state** card ("No courses match your search") when the filtered list is empty.
 - Each course card shows its own tags as small muted chips, so the taxonomy is visible, not just filterable.
 - Progress and outcome tracking remain exactly as they are.
 
-Styling reuses the existing `--jjs-*` CSS variables.
-
 ## Tag backfill for existing courses
 
 | Course | `courseId` | Tags |
 |---|---|---|
-| AI for JJ's Waste & Recycling | `ai-for-jjs-business` | `AI`, `Operations`, `Beginner` |
+| AI for Business | `ai-for-business` | `AI`, `Operations`, `Beginner` |
 | How to Create Courses | `how-to-create-courses` | `Platform`, `Authoring`, `Admin` |
 | AI Dev Studio Fundamentals | `ai-dev-studio-fundamentals` | `AI`, `Development`, `Advanced` |
-| The Run Sheet | `jtrack-run-sheet` | `J-Track`, `Development`, `Operations` |
-| J-Track Domestic: System Overview | `jtrack-domestic-system-overview` | `J-Track`, `Development`, `Beginner` |
 
-Resulting tag universe: `AI`, `Operations`, `Beginner`, `Platform`, `Authoring`, `Admin`, `Development`, `Advanced`, `J-Track`.
+Resulting tag universe: `AI`, `Operations`, `Beginner`, `Platform`, `Authoring`, `Admin`, `Development`, `Advanced`.
 
 ## Testing
 

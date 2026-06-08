@@ -422,15 +422,15 @@ export default function CoursePlayer({
   };
 
   return (
-    <div className="min-h-screen bg-[var(--jjs-sand-50)] text-[var(--jjs-green-900)]">
-      <header className="border-b border-[var(--jjs-sand-300)] bg-white/90 backdrop-blur">
+    <div className="min-h-screen bg-[var(--sand-50)] text-[var(--green-900)]">
+      <header className="border-b border-[var(--sand-300)] bg-white/90 backdrop-blur">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-4 px-4 py-4 sm:px-6 lg:grid-cols-[1fr_minmax(280px,420px)_auto] lg:px-8">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-[var(--jjs-green-700)]">
-              JJ&apos;s Waste & Recycling
+            <p className="text-sm font-semibold uppercase tracking-wide text-[var(--green-700)]">
+              AI Dev Studio
             </p>
             <h1 className="text-xl font-bold sm:text-2xl">{title}</h1>
-            {subtitle ? <p className="text-sm text-[var(--jjs-green-700)]">{subtitle}</p> : null}
+            {subtitle ? <p className="text-sm text-[var(--green-700)]">{subtitle}</p> : null}
           </div>
 
           <div>
@@ -441,18 +441,18 @@ export default function CoursePlayer({
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
               placeholder="Search lessons (/, Ctrl+K)"
-              className="w-full rounded-lg border border-[var(--jjs-sand-300)] bg-white px-3 py-2 text-sm text-[var(--jjs-green-900)] outline-none transition placeholder:text-[var(--jjs-green-600)] focus:border-[var(--jjs-green-600)] focus:ring-2 focus:ring-[var(--jjs-green-600)]/20"
+              className="w-full rounded-lg border border-[var(--sand-300)] bg-white px-3 py-2 text-sm text-[var(--green-900)] outline-none transition placeholder:text-[var(--green-600)] focus:border-[var(--green-600)] focus:ring-2 focus:ring-[var(--green-600)]/20"
             />
           </div>
 
           <div className="flex items-center justify-start gap-2 lg:justify-end">
             <Link
               href="/courses"
-              className="rounded-lg border border-[var(--jjs-sand-400)] bg-white px-4 py-2 text-sm font-semibold text-[var(--jjs-green-800)] transition hover:bg-[var(--jjs-sand-100)]"
+              className="rounded-lg border border-[var(--sand-400)] bg-white px-4 py-2 text-sm font-semibold text-[var(--green-800)] transition hover:bg-[var(--sand-100)]"
             >
               Course Catalog
             </Link>
-            <div className="rounded-xl border border-[var(--jjs-sand-300)] bg-[var(--jjs-sand-100)] px-4 py-2">
+            <div className="rounded-xl border border-[var(--sand-300)] bg-[var(--sand-100)] px-4 py-2">
               <p className="text-lg font-bold">{completedCount} / {totalLessons} ({percent}%)</p>
             </div>
           </div>
@@ -462,15 +462,15 @@ export default function CoursePlayer({
       <main className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[320px_1fr] lg:px-8">
         <aside
           ref={navContainerRef}
-          className="max-h-[calc(100vh-10rem)] overflow-y-auto rounded-2xl border border-[var(--jjs-sand-300)] bg-white p-4"
+          className="max-h-[calc(100vh-10rem)] overflow-y-auto rounded-2xl border border-[var(--sand-300)] bg-white p-4"
         >
           <nav className="space-y-5" aria-label="Course modules">
             <div>
-              <h3 className="text-base font-bold text-[var(--jjs-green-900)]">Course Content</h3>
-              <p className="text-sm text-[var(--jjs-green-700)]">{completedCount} of {totalLessons} lessons completed</p>
+              <h3 className="text-base font-bold text-[var(--green-900)]">Course Content</h3>
+              <p className="text-sm text-[var(--green-700)]">{completedCount} of {totalLessons} lessons completed</p>
             </div>
 
-            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--jjs-green-700)]">Core Modules</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--green-700)]">Core Modules</p>
 
             <div>
               <Link
@@ -478,30 +478,30 @@ export default function CoursePlayer({
                 data-active-nav-item={selectedLesson.id === "intro" ? "true" : undefined}
                 className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition ${
                   selectedLesson.id === "intro"
-                    ? "bg-[var(--jjs-green-800)] !text-white"
-                    : "text-[var(--jjs-green-900)] hover:bg-[var(--jjs-sand-100)]"
+                    ? "bg-[var(--green-800)] !text-white"
+                    : "text-[var(--green-900)] hover:bg-[var(--sand-100)]"
                 }`}
               >
                 <span className={`inline-flex h-4 w-4 items-center justify-center rounded-full border text-[10px] ${
                   completedSet.has("intro")
-                    ? "border-[var(--jjs-green-600)] bg-[var(--jjs-green-600)] text-white"
+                    ? "border-[var(--green-600)] bg-[var(--green-600)] text-white"
                     : selectedLesson.id === "intro"
                       ? "border-white/80 text-white"
-                      : "border-[var(--jjs-sand-400)]"
+                      : "border-[var(--sand-400)]"
                 }`}>
                   {completedSet.has("intro") ? "✓" : selectedLesson.id === "intro" ? "●" : ""}
                 </span>
-                <span className={selectedLesson.id === "intro" ? "!text-white" : "text-[var(--jjs-green-900)]"}>Welcome</span>
+                <span className={selectedLesson.id === "intro" ? "!text-white" : "text-[var(--green-900)]"}>Welcome</span>
               </Link>
             </div>
 
-            <div className="rounded-xl bg-[var(--jjs-sand-100)] p-3">
-              <p className="text-sm font-semibold text-[var(--jjs-green-800)]">Audience</p>
-              <p className="text-sm text-[var(--jjs-green-700)]">{audience ?? "Teams"}</p>
+            <div className="rounded-xl bg-[var(--sand-100)] p-3">
+              <p className="text-sm font-semibold text-[var(--green-800)]">Audience</p>
+              <p className="text-sm text-[var(--green-700)]">{audience ?? "Teams"}</p>
             </div>
 
             {visibleModules.length === 0 ? (
-              <p className="rounded-lg bg-[var(--jjs-sand-100)] px-3 py-2 text-sm text-[var(--jjs-green-700)]">
+              <p className="rounded-lg bg-[var(--sand-100)] px-3 py-2 text-sm text-[var(--green-700)]">
                 No lessons match that search.
               </p>
             ) : null}
@@ -514,7 +514,7 @@ export default function CoursePlayer({
                   : expandedModuleIds.has(courseModule.id) || selectedLesson.moduleId === courseModule.id;
 
               return (
-                <div key={courseModule.id} className="rounded-xl border border-[var(--jjs-sand-200)]">
+                <div key={courseModule.id} className="rounded-xl border border-[var(--sand-200)]">
                   <button
                     type="button"
                     onClick={() => {
@@ -528,24 +528,24 @@ export default function CoursePlayer({
                         return next;
                       });
                     }}
-                    className="w-full rounded-lg px-3 py-2 text-left transition hover:bg-[var(--jjs-sand-100)]"
+                    className="w-full rounded-lg px-3 py-2 text-left transition hover:bg-[var(--sand-100)]"
                     aria-expanded={isExpanded}
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
-                        <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--jjs-sand-100)] text-xs font-bold text-[var(--jjs-green-800)]">
+                        <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--sand-100)] text-xs font-bold text-[var(--green-800)]">
                           {courseModule.id}
                         </span>
-                        <p className="text-sm font-semibold text-[var(--jjs-green-800)]">{courseModule.title}</p>
+                        <p className="text-sm font-semibold text-[var(--green-800)]">{courseModule.title}</p>
                       </div>
-                      <div className="flex items-center gap-2 text-xs text-[var(--jjs-green-700)]">
+                      <div className="flex items-center gap-2 text-xs text-[var(--green-700)]">
                         <span>{stats.completed}/{stats.total}</span>
                         <span aria-hidden="true">{isExpanded ? "▾" : "▸"}</span>
                       </div>
                     </div>
-                    <div className="mt-2 h-2 rounded-full bg-[var(--jjs-sand-200)]">
+                    <div className="mt-2 h-2 rounded-full bg-[var(--sand-200)]">
                       <div
-                        className="h-2 rounded-full bg-[var(--jjs-earth-500)] transition-[width]"
+                        className="h-2 rounded-full bg-[var(--earth-500)] transition-[width]"
                         style={{ width: `${stats.percent}%` }}
                       />
                     </div>
@@ -563,22 +563,22 @@ export default function CoursePlayer({
                               data-active-nav-item={active ? "true" : undefined}
                               className={`flex items-center gap-2 rounded-lg px-2.5 py-2 text-sm transition ${
                                 active
-                                  ? "bg-[var(--jjs-green-800)] !text-white"
-                                  : "text-[var(--jjs-green-900)] hover:bg-[var(--jjs-sand-100)]"
+                                  ? "bg-[var(--green-800)] !text-white"
+                                  : "text-[var(--green-900)] hover:bg-[var(--sand-100)]"
                               }`}
                             >
                               <span
                                 className={`inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border text-[10px] ${
                                   done
-                                    ? "border-[var(--jjs-green-600)] bg-[var(--jjs-green-600)] text-white"
+                                    ? "border-[var(--green-600)] bg-[var(--green-600)] text-white"
                                     : active
                                       ? "border-white/80 text-white"
-                                      : "border-[var(--jjs-sand-400)]"
+                                      : "border-[var(--sand-400)]"
                                 }`}
                               >
                                 {done ? "✓" : active ? "●" : ""}
                               </span>
-                              <span className={active ? "text-white" : "text-[var(--jjs-green-900)]"}>{lesson.title}</span>
+                              <span className={active ? "text-white" : "text-[var(--green-900)]"}>{lesson.title}</span>
                             </Link>
                           </li>
                         );
@@ -591,10 +591,10 @@ export default function CoursePlayer({
           </nav>
         </aside>
 
-        <section className="rounded-2xl border border-[var(--jjs-sand-300)] bg-white p-5 sm:p-8">
+        <section className="rounded-2xl border border-[var(--sand-300)] bg-white p-5 sm:p-8">
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--jjs-green-700)]">
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--green-700)]">
                 {selectedLesson.moduleTitle}
               </p>
               <h2 className="text-2xl font-bold">{selectedLesson.title}</h2>
@@ -604,19 +604,19 @@ export default function CoursePlayer({
               {!isQuizLesson ? (
                 <button
                   onClick={toggleSelectedLesson}
-                  className="rounded-lg bg-[var(--jjs-green-800)] px-4 py-2 text-sm font-semibold !text-white transition hover:bg-[var(--jjs-green-700)]"
+                  className="rounded-lg bg-[var(--green-800)] px-4 py-2 text-sm font-semibold !text-white transition hover:bg-[var(--green-700)]"
                   type="button"
                 >
                   {isSelectedLessonCompleted ? "Mark Incomplete" : "Mark Complete"}
                 </button>
               ) : (
-                <span className="rounded-lg bg-[var(--jjs-sand-100)] px-4 py-2 text-sm font-semibold text-[var(--jjs-green-800)]">
+                <span className="rounded-lg bg-[var(--sand-100)] px-4 py-2 text-sm font-semibold text-[var(--green-800)]">
                   {isQuizComplete ? "Quiz Complete" : "Complete Quiz to Continue"}
                 </span>
               )}
               <button
                 onClick={resetProgress}
-                className="rounded-lg border border-[var(--jjs-sand-400)] px-4 py-2 text-sm font-semibold text-[var(--jjs-green-800)] transition hover:bg-[var(--jjs-sand-100)]"
+                className="rounded-lg border border-[var(--sand-400)] px-4 py-2 text-sm font-semibold text-[var(--green-800)] transition hover:bg-[var(--sand-100)]"
                 type="button"
               >
                 Reset Progress
@@ -653,11 +653,11 @@ export default function CoursePlayer({
             </article>
           )}
 
-          <div className="mt-10 flex flex-wrap justify-between gap-3 border-t border-[var(--jjs-sand-300)] pt-6">
+          <div className="mt-10 flex flex-wrap justify-between gap-3 border-t border-[var(--sand-300)] pt-6">
             {previousLesson ? (
               <Link
                 href={`/courses/${courseId}?lesson=${previousLesson.id}`}
-                className="rounded-lg border border-[var(--jjs-sand-400)] px-4 py-2 text-sm font-semibold text-[var(--jjs-green-800)] hover:bg-[var(--jjs-sand-100)]"
+                className="rounded-lg border border-[var(--sand-400)] px-4 py-2 text-sm font-semibold text-[var(--green-800)] hover:bg-[var(--sand-100)]"
               >
                 Previous Lesson
               </Link>
@@ -669,7 +669,7 @@ export default function CoursePlayer({
               <button
                 onClick={isQuizLesson ? () => completeAndContinue() : toggleSelectedLesson}
                 disabled={isQuizLesson && !isQuizComplete && !isSelectedLessonCompleted}
-                className="rounded-lg bg-[var(--jjs-earth-500)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[var(--jjs-earth-600)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg bg-[var(--earth-500)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[var(--earth-600)] disabled:cursor-not-allowed disabled:opacity-50"
                 type="button"
               >
                 {isQuizLesson
@@ -680,7 +680,7 @@ export default function CoursePlayer({
               <button
                 onClick={closeCourse}
                 disabled={!canCloseCourse}
-                className="rounded-lg bg-[var(--jjs-green-800)] px-4 py-2 text-sm font-semibold !text-white transition hover:bg-[var(--jjs-green-700)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg bg-[var(--green-800)] px-4 py-2 text-sm font-semibold !text-white transition hover:bg-[var(--green-700)] disabled:cursor-not-allowed disabled:opacity-50"
                 type="button"
               >
                 {canCloseCourse ? "Close Course" : "Complete Quiz to Close"}

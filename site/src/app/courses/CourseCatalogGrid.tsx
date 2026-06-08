@@ -82,7 +82,7 @@ export default function CourseCatalogGrid({ courses }: { courses: CourseSummary[
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search courses…"
           aria-label="Search courses"
-          className="w-full rounded-lg border border-[var(--jjs-sand-400)] bg-white px-4 py-2 text-sm text-[var(--jjs-green-900)] placeholder:text-[var(--jjs-green-700)]/60 focus:border-[var(--jjs-green-700)] focus:outline-none"
+          className="w-full rounded-lg border border-[var(--sand-400)] bg-white px-4 py-2 text-sm text-[var(--green-900)] placeholder:text-[var(--green-700)]/60 focus:border-[var(--green-700)] focus:outline-none"
         />
 
         {allTags.length > 0 ? (
@@ -97,8 +97,8 @@ export default function CourseCatalogGrid({ courses }: { courses: CourseSummary[
                   onClick={() => toggleTag(tag)}
                   className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
                     active
-                      ? "border-[var(--jjs-green-800)] bg-[var(--jjs-green-800)] text-white"
-                      : "border-[var(--jjs-sand-400)] bg-white text-[var(--jjs-green-800)] hover:bg-[var(--jjs-sand-100)]"
+                      ? "border-[var(--green-800)] bg-[var(--green-800)] text-white"
+                      : "border-[var(--sand-400)] bg-white text-[var(--green-800)] hover:bg-[var(--sand-100)]"
                   }`}
                 >
                   {tag}
@@ -110,7 +110,7 @@ export default function CourseCatalogGrid({ courses }: { courses: CourseSummary[
       </div>
 
       {visibleCourses.length === 0 ? (
-        <div className="mt-6 rounded-2xl border border-[var(--jjs-sand-300)] bg-white p-5 text-sm text-[var(--jjs-green-800)] shadow-sm">
+        <div className="mt-6 rounded-2xl border border-[var(--sand-300)] bg-white p-5 text-sm text-[var(--green-800)] shadow-sm">
           No courses match your search.
         </div>
       ) : null}
@@ -132,8 +132,8 @@ export default function CourseCatalogGrid({ courses }: { courses: CourseSummary[
             key={course.id}
             className={`rounded-2xl border p-5 shadow-sm ${
               isClosed
-                ? "border-[var(--jjs-earth-500)] bg-[#fcf6ea]"
-                : "border-[var(--jjs-sand-300)] bg-white"
+                ? "border-[var(--earth-500)] bg-[#fcf6ea]"
+                : "border-[var(--sand-300)] bg-white"
             }`}
           >
             {hasPerfectCompletion ? (
@@ -143,12 +143,12 @@ export default function CourseCatalogGrid({ courses }: { courses: CourseSummary[
               </div>
             ) : null}
 
-            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--jjs-green-700)]">
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--green-700)]">
               {course.totalLessons} lessons
             </p>
             <h2 className="mt-1 text-lg font-bold">{course.title}</h2>
             {course.subtitle ? (
-              <p className="mt-2 text-sm text-[var(--jjs-green-800)]">{course.subtitle}</p>
+              <p className="mt-2 text-sm text-[var(--green-800)]">{course.subtitle}</p>
             ) : null}
 
             {course.tags.length > 0 ? (
@@ -156,7 +156,7 @@ export default function CourseCatalogGrid({ courses }: { courses: CourseSummary[
                 {course.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-[var(--jjs-sand-100)] px-2 py-0.5 text-[11px] font-medium text-[var(--jjs-green-700)]"
+                    className="rounded-full bg-[var(--sand-100)] px-2 py-0.5 text-[11px] font-medium text-[var(--green-700)]"
                   >
                     {tag}
                   </span>
@@ -166,19 +166,19 @@ export default function CourseCatalogGrid({ courses }: { courses: CourseSummary[
 
             <div className="mt-4 flex items-end justify-between gap-3">
               <Link
-                className="inline-flex items-center rounded-lg bg-[var(--jjs-green-800)] px-4 py-2 text-sm font-semibold !text-white hover:bg-[var(--jjs-green-700)]"
+                className="inline-flex items-center rounded-lg bg-[var(--green-800)] px-4 py-2 text-sm font-semibold !text-white hover:bg-[var(--green-700)]"
                 href={`/courses/${course.id}`}
               >
                 {isClosed ? "Review Course" : "Open Course"}
               </Link>
 
               {isClosed && outcome ? (
-                <div className="rounded-lg border border-[var(--jjs-earth-600)] bg-white px-3 py-1.5 text-right text-xs font-semibold text-[var(--jjs-green-800)]">
+                <div className="rounded-lg border border-[var(--earth-600)] bg-white px-3 py-1.5 text-right text-xs font-semibold text-[var(--green-800)]">
                   <p>Closed: {outcome.scorePercent}%</p>
                   <p>Reward: {rewardLabel}</p>
                 </div>
               ) : started ? (
-                <div className="rounded-lg border border-[var(--jjs-sand-300)] bg-[var(--jjs-sand-100)] px-3 py-1.5 text-right text-xs font-semibold text-[var(--jjs-green-700)]">
+                <div className="rounded-lg border border-[var(--sand-300)] bg-[var(--sand-100)] px-3 py-1.5 text-right text-xs font-semibold text-[var(--green-700)]">
                   <p>
                     In Progress {completed}/{course.totalLessons}
                   </p>

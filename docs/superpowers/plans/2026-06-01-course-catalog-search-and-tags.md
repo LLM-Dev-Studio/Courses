@@ -289,7 +289,7 @@ git commit -m "feat: parse and expose course tags from the data layer"
 ## Task 3: Backfill tags onto the 5 existing courses
 
 **Files:**
-- Modify: `courses/AI for JJs Business/course.json`
+- Modify: `courses/AI for Business/course.json`
 - Modify: `courses/How to Create Courses/course.json`
 - Modify: `courses/AI Dev Studio Fundamentals/course.json`
 - Modify: `courses/The Run Sheet/course.json`
@@ -299,13 +299,13 @@ git commit -m "feat: parse and expose course tags from the data layer"
 
 Edit each file, adding a `tags` array. Use these exact values:
 
-`courses/AI for JJs Business/course.json`:
+`courses/AI for Business/course.json`:
 ```json
 {
-  "courseId": "ai-for-jjs-business",
-  "title": "AI for JJ's Waste & Recycling",
-  "subtitle": "Practical AI for Australian Waste and Recycling Operations",
-  "audience": "JJ's teams across Australia",
+  "courseId": "ai-for-business",
+  "title": "AI for Business",
+  "subtitle": "Practical AI for Australian Businesses",
+  "audience": "Teams across Australia",
   "tags": ["AI", "Operations", "Beginner"]
 }
 ```
@@ -332,37 +332,15 @@ Edit each file, adding a `tags` array. Use these exact values:
 }
 ```
 
-`courses/The Run Sheet/course.json`:
-```json
-{
-  "courseId": "jtrack-run-sheet",
-  "title": "The Run Sheet",
-  "subtitle": "How J-Track Domestic turns route data into the driver's daily worksheet",
-  "audience": "Engineers and technical staff working with J-Track Domestic",
-  "tags": ["J-Track", "Development", "Operations"]
-}
-```
-
-`courses/J-Track Domestic System Overview/course.json`:
-```json
-{
-  "courseId": "jtrack-domestic-system-overview",
-  "title": "J-Track Domestic: System Overview",
-  "subtitle": "A guided tour of the distributed platform behind garbage-collection operations",
-  "audience": "Engineers and technical staff new to J-Track Domestic",
-  "tags": ["J-Track", "Development", "Beginner"]
-}
-```
-
 - [ ] **Step 2: Verify all five files are valid JSON**
 
-Run: `cd site && node -e "const fs=require('fs');for(const p of process.argv.slice(1)){JSON.parse(fs.readFileSync(p,'utf8'));console.log('OK',p)}" "../courses/AI for JJs Business/course.json" "../courses/How to Create Courses/course.json" "../courses/AI Dev Studio Fundamentals/course.json" "../courses/The Run Sheet/course.json" "../courses/J-Track Domestic System Overview/course.json"`
+Run: `cd site && node -e "const fs=require('fs');for(const p of process.argv.slice(1)){JSON.parse(fs.readFileSync(p,'utf8'));console.log('OK',p)}" "../courses/AI for Business/course.json" "../courses/How to Create Courses/course.json" "../courses/AI Dev Studio Fundamentals/course.json" "../courses/The Run Sheet/course.json" "../courses/J-Track Domestic System Overview/course.json"`
 Expected: `OK` printed for all five paths, no parse error.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add "courses/AI for JJs Business/course.json" "courses/How to Create Courses/course.json" "courses/AI Dev Studio Fundamentals/course.json" "courses/The Run Sheet/course.json" "courses/J-Track Domestic System Overview/course.json"
+git add "courses/AI for Business/course.json" "courses/How to Create Courses/course.json" "courses/AI Dev Studio Fundamentals/course.json"
 git commit -m "feat: tag the five existing courses"
 ```
 
@@ -453,7 +431,7 @@ Replace it with:
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search courses…"
           aria-label="Search courses"
-          className="w-full rounded-lg border border-[var(--jjs-sand-400)] bg-white px-4 py-2 text-sm text-[var(--jjs-green-900)] placeholder:text-[var(--jjs-green-700)]/60 focus:border-[var(--jjs-green-700)] focus:outline-none"
+          className="w-full rounded-lg border border-[var(--sand-400)] bg-white px-4 py-2 text-sm text-[var(--green-900)] placeholder:text-[var(--green-700)]/60 focus:border-[var(--green-700)] focus:outline-none"
         />
 
         {allTags.length > 0 ? (
@@ -468,8 +446,8 @@ Replace it with:
                   onClick={() => toggleTag(tag)}
                   className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
                     active
-                      ? "border-[var(--jjs-green-800)] bg-[var(--jjs-green-800)] text-white"
-                      : "border-[var(--jjs-sand-400)] bg-white text-[var(--jjs-green-800)] hover:bg-[var(--jjs-sand-100)]"
+                      ? "border-[var(--green-800)] bg-[var(--green-800)] text-white"
+                      : "border-[var(--sand-400)] bg-white text-[var(--green-800)] hover:bg-[var(--sand-100)]"
                   }`}
                 >
                   {tag}
@@ -481,7 +459,7 @@ Replace it with:
       </div>
 
       {visibleCourses.length === 0 ? (
-        <div className="mt-6 rounded-2xl border border-[var(--jjs-sand-300)] bg-white p-5 text-sm text-[var(--jjs-green-800)] shadow-sm">
+        <div className="mt-6 rounded-2xl border border-[var(--sand-300)] bg-white p-5 text-sm text-[var(--green-800)] shadow-sm">
           No courses match your search.
         </div>
       ) : null}
@@ -502,7 +480,7 @@ Two edits inside the `.map(...)`:
                 {course.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-[var(--jjs-sand-100)] px-2 py-0.5 text-[11px] font-medium text-[var(--jjs-green-700)]"
+                    className="rounded-full bg-[var(--sand-100)] px-2 py-0.5 text-[11px] font-medium text-[var(--green-700)]"
                   >
                     {tag}
                   </span>
