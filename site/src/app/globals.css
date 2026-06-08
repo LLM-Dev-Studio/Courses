@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf7f1;
+  --foreground: #18281c;
+
+  --jjs-green-900: #18281c;
+  --jjs-green-800: #253c29;
+  --jjs-green-700: #2f4033;
+  --jjs-green-600: #3e5143;
+  --jjs-green-500: #4f6654;
+
+  --jjs-earth-700: #7b5e3d;
+  --jjs-earth-600: #93764d;
+  --jjs-earth-500: #a4885a;
+
+  --jjs-sand-50: #f7f4ef;
+  --jjs-sand-100: #f1ece4;
+  --jjs-sand-200: #e6ded1;
+  --jjs-sand-300: #d3c8b2;
+  --jjs-sand-400: #bca884;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(164, 136, 90, 0.12), transparent 40%),
+    radial-gradient(circle at 90% 85%, rgba(47, 64, 51, 0.08), transparent 42%),
+    var(--background);
+  color: var(--foreground);
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+a:not([class]) {
+  color: inherit;
+}
+
+.markdown-content :where(h1, h2, h3, h4) {
+  color: var(--jjs-green-900);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  line-height: 1.2;
+}
+
+.markdown-content :where(h1) {
+  margin-top: 0;
+  margin-bottom: 0.9rem;
+  font-size: 1.9rem;
+  font-weight: 900;
+}
+
+.markdown-content :where(h2) {
+  margin-top: 1.6rem;
+  margin-bottom: 0.65rem;
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.markdown-content :where(h3) {
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.markdown-content :where(h4) {
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.markdown-content :where(p, li) {
+  color: #2c3d30;
+  line-height: 1.7;
+}
+
+.markdown-content :where(p) {
+  margin: 0.8rem 0;
+}
+
+.markdown-content :where(ul, ol) {
+  margin: 0.8rem 0 0.9rem;
+  padding-left: 1.3rem;
+}
+
+.markdown-content :where(ul) {
+  list-style: disc;
+}
+
+.markdown-content :where(ol) {
+  list-style: decimal;
+}
+
+.markdown-content :where(li) {
+  margin-top: 0.35rem;
+}
+
+.markdown-content :where(a) {
+  color: var(--jjs-green-700);
+  text-decoration: underline;
+  text-underline-offset: 0.14rem;
+}
+
+.markdown-content :where(code) {
+  border-radius: 0.35rem;
+  background: var(--jjs-sand-100);
+  padding: 0.1rem 0.35rem;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.92em;
+}
+
+.markdown-content :where(pre) {
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 0.6rem;
+  background: #f0e8db;
+  padding: 0.9rem 1rem;
+}
+
+.markdown-content :where(pre code) {
+  background: transparent;
+  padding: 0;
+}
+
+.markdown-content :where(blockquote) {
+  margin: 1rem 0;
+  border-left: 4px solid var(--jjs-earth-500);
+  background: #f9f4ea;
+  padding: 0.6rem 1rem;
+}
+
+.markdown-content :where(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.markdown-content :where(th, td) {
+  border: 1px solid var(--jjs-sand-300);
+  padding: 0.55rem 0.65rem;
+  text-align: left;
+}
+
+.markdown-content :where(th) {
+  background: var(--jjs-sand-100);
+  color: var(--jjs-green-900);
+}
+
+.markdown-content :where(hr) {
+  border: 0;
+  border-top: 1px solid var(--jjs-sand-300);
+  margin: 1.25rem 0;
+}

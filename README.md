@@ -1,32 +1,57 @@
-# Courses Content Convention
+# AI Learning Hub
 
-This folder uses a file-first course format designed for easy authoring and scaling.
+A local-first course platform for authoring and delivering markdown-based training content.
 
-## Recommended Structure
+## Repository Layout
 
-- courses/
-  - <Course Name>/
-    - course.json            # machine-readable manifest
-    - course-index.md        # human-readable file map
-    - 1-intro.md             # course summary/landing content
-    - modules/
-      - 01/
-        - 1-*.md
-        - ...
-      - 02/
-      - ...
+- `site/` - Next.js application (App Router, TypeScript)
+- `courses/` - Course content in markdown/frontmatter
+- `.github/workflows/` - CI pipeline definitions
 
-## Authoring Rules
+## Features
 
-1. Keep one lesson per markdown file.
-2. Prefix files numerically to preserve lesson ordering.
-3. Keep module folders zero-padded (`01`, `02`, ...).
-4. Update `course-index.md` and `course.json` when adding/removing lessons.
-5. Keep course-specific legal/compliance references in-region (e.g. Australia).
+- Markdown lesson rendering with frontmatter metadata
+- Frontmatter-based quiz engine
+- Local-only learner progress, completion status, and rewards
+- Local authoring tools to scaffold new courses
+- Course catalog with completion cards and rewards
 
-## Why This Works Well
+## Quick Start
 
-- Easy for non-developers to edit markdown.
-- Version control diffs are clean.
-- Course renderer can rely on `course.json` for deterministic ordering.
-- New courses can be added by copying a folder template.
+1. Install app dependencies:
+
+```bash
+cd site
+npm ci
+```
+
+2. Run locally:
+
+```bash
+npm run dev
+```
+
+3. Open `http://localhost:3000`.
+
+## Quality Checks
+
+From `site/`:
+
+```bash
+npm run lint
+npm run build
+npm run test
+npm run test:e2e
+```
+
+## Content Authoring
+
+See `courses/README.md` for course structure and conventions.
+
+## Contributing
+
+See `CONTRIBUTING.md` for setup, coding standards, and pull request guidance.
+
+## License
+
+This repository is licensed under the MIT License. See `LICENSE`.
