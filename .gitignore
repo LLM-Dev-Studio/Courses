@@ -2,6 +2,9 @@
 node_modules/
 **/node_modules/
 
+# AI Related
+**/.serena/
+
 # Next.js build output
 .next/
 **/.next/
