@@ -41,25 +41,19 @@ export default async function Home() {
           <HomeAvailableCourses courses={courses} />
         </section>
 
-        {isLocalRuntime ? (
-          <section className="mt-10 rounded-2xl border border-[var(--sand-300)] bg-white p-6 shadow-sm">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <h2 className="text-lg font-bold">Local Authoring Tools</h2>
-                <p className="mt-1 text-sm text-[var(--green-700)]">
-                  Create a new course scaffold from the browser while running locally.
-                </p>
-              </div>
-
-              <Link
-                href="/courses/new"
-                className="inline-flex items-center rounded-lg bg-[var(--green-800)] px-4 py-2 text-sm font-semibold !text-white hover:bg-[var(--green-700)]"
-              >
-                New Course
-              </Link>
+        <section className="mt-10 rounded-2xl border border-[var(--sand-300)] bg-white p-6 shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-bold">{isLocalRuntime ? "Local Authoring Tools" : "Create a Course"}</h2>
+              <p className="mt-1 text-sm text-[var(--green-700)]">
+                {isLocalRuntime ? "Create a new course scaffold from the browser while running locally." : "Download a starter ZIP, customize it locally, and open a pull request when it is ready."}
+              </p>
             </div>
-          </section>
-        ) : null}
+            <Link href={isLocalRuntime ? "/courses/new" : "/courses/export"} className="inline-flex items-center rounded-lg bg-[var(--green-800)] px-4 py-2 text-sm font-semibold !text-white hover:bg-[var(--green-700)]">
+              {isLocalRuntime ? "New Course" : "Download Starter ZIP"}
+            </Link>
+          </div>
+        </section>
       </main>
     </div>
   );

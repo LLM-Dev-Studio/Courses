@@ -6,16 +6,9 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 import { listCourses } from "@/lib/courses";
-import { COURSES_ROOT, slugify } from "@/lib/course-paths";
+import { COURSES_ROOT } from "@/lib/course-paths";
+import { buildCourseScaffold, scaffoldInputFromForm } from "@/lib/course-scaffold";
 
-function toSafeFolderName(input: string): string {
-  const cleaned = input
-    .trim()
-    .replace(/[<>:"/\\|?*]/g, "")
-    .replace(/\.+$/g, "");
-
-  return cleaned || "New Course";
-}
 
 async function createCourseAction(formData: FormData) {
   "use server";
@@ -24,42 +17,13 @@ async function createCourseAction(formData: FormData) {
     redirect("/courses");
   }
 
-  const title = String(formData.get("title") ?? "").trim();
-  const subtitle = String(formData.get("subtitle") ?? "").trim();
-  const audience = String(formData.get("audience") ?? "").trim();
-  const requestedCourseId = String(formData.get("courseId") ?? "").trim();
-  const requestedPassThreshold = String(formData.get("passThreshold") ?? "").trim();
-  const requestedMaxAttempts = String(formData.get("maxAttempts") ?? "").trim();
-  const requestedResetScope = String(formData.get("resetScopeOnFail") ?? "module").trim().toLowerCase();
-
-  if (!title) {
-    throw new Error("Title is required.");
-  }
-
-  const courseId = slugify(requestedCourseId || title);
-  if (!courseId) {
-    throw new Error("Unable to derive a valid course ID.");
-  }
-
-  const parsedPassThreshold = Number.parseInt(requestedPassThreshold || "80", 10);
-  const parsedMaxAttempts = Number.parseInt(requestedMaxAttempts || "2", 10);
-
-  if (!Number.isFinite(parsedPassThreshold) || parsedPassThreshold < 1 || parsedPassThreshold > 100) {
-    throw new Error("Pass threshold must be a whole number between 1 and 100.");
-  }
-
-  if (!Number.isFinite(parsedMaxAttempts) || parsedMaxAttempts < 1 || parsedMaxAttempts > 10) {
-    throw new Error("Max attempts must be a whole number between 1 and 10.");
-  }
-
-  const resetScopeOnFail = requestedResetScope === "course" ? "course" : "module";
+  const { courseId, folderName, files } = buildCourseScaffold(scaffoldInputFromForm(formData));
 
   const existingCourses = await listCourses();
   if (existingCourses.some((course) => course.id === courseId)) {
     throw new Error(`A course with ID '${courseId}' already exists.`);
   }
 
-  const folderName = toSafeFolderName(title);
   const coursePath = path.join(COURSES_ROOT, folderName);
 
   const exists = await fs
@@ -71,70 +35,8 @@ async function createCourseAction(formData: FormData) {
     throw new Error(`Folder '${folderName}' already exists in courses.`);
   }
 
-  await fs.mkdir(path.join(coursePath, "modules", "01"), { recursive: true });
-
-  const courseManifest = {
-    courseId,
-    title,
-    subtitle: subtitle || undefined,
-    audience: audience || undefined,
-  };
-
-  await fs.writeFile(
-    path.join(coursePath, "course.json"),
-    `${JSON.stringify(courseManifest, null, 2)}\n`,
-    "utf-8",
-  );
-
-  const courseIndexMarkdown = [
-    `# ${title} Course Index`,
-    "",
-    "## Files",
-    "",
-    "- 1-intro.md",
-    "- modules/01/1-module-overview.md",
-    "- modules/01/2-first-lesson.md",
-    "- modules/01/3-module-quiz.md",
-    "",
-    "## Notes",
-    "",
-    "Keep this index updated when adding, removing, or renaming lesson files.",
-    "",
-  ].join("\n");
-
-  await fs.writeFile(path.join(coursePath, "course-index.md"), courseIndexMarkdown, "utf-8");
-
-  const introFrontmatter = [
-    "---",
-    `courseId: ${courseId}`,
-    `title: ${title}`,
-    ...(subtitle ? [`subtitle: ${subtitle}`] : []),
-    ...(audience ? [`audience: ${audience}`] : []),
-    "---",
-    "",
-  ].join("\n");
-
-  const introMarkdown = `${introFrontmatter}# Welcome to ${title}\n\nThis course was generated locally using the New Course tool.\n\n## Next Steps\n\n- Edit this intro with your context\n- Add more lessons under modules/\n- Add quizzes using frontmatter\n\n## Key Takeaway\n\nStart simple and iterate quickly.\n`;
-
-  await fs.writeFile(path.join(coursePath, "1-intro.md"), introMarkdown, "utf-8");
-
-  await fs.writeFile(
-    path.join(coursePath, "modules", "01", "1-module-overview.md"),
-    "# Module 1 Overview: Getting Started\n\nThis starter module helps you structure your first content set.\n",
-    "utf-8",
-  );
-
-  await fs.writeFile(
-    path.join(coursePath, "modules", "01", "2-first-lesson.md"),
-    "# Your First Lesson\n\nAdd your core teaching content here.\n\n## Key Takeaway\n\nOne lesson, one clear objective.\n",
-    "utf-8",
-  );
-
-  await fs.writeFile(
-    path.join(coursePath, "modules", "01", "3-module-quiz.md"),
-    `---\nlessonType: quiz\npassThreshold: ${parsedPassThreshold}\nmaxAttempts: ${parsedMaxAttempts}\nresetScopeOnFail: ${resetScopeOnFail}\nquestions:\n  - prompt: Which file defines course-level metadata in this setup?\n    options:\n      - 1-intro.md frontmatter\n      - package.json\n      - globals.css\n      - README.md\n    answer: 1-intro.md frontmatter\n    explanation: Intro frontmatter is now supported as metadata source.\n---\n\n# Module 1 Quiz\n\nValidate your setup before expanding the course.\n`,
-    "utf-8",
-  );
+  await fs.mkdir(coursePath, { recursive: true });
+  await Promise.all(files.map((file) => fs.writeFile(path.join(coursePath, file.path), file.content, "utf-8")));
 
   revalidatePath("/");
   revalidatePath("/courses");
