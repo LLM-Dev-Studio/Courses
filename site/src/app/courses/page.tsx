@@ -16,12 +16,21 @@ export default async function CoursesPage() {
             <p className="mt-2 text-[var(--green-700)]">Browse our training courses and start learning today</p>
           </div>
 
-          <Link
-            href="/"
-            className="inline-flex items-center rounded-lg border border-[var(--sand-400)] bg-white px-4 py-2 text-sm font-semibold text-[var(--green-800)] transition hover:bg-[var(--sand-100)]"
-          >
-            Home
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/courses/llm-guide"
+              className="inline-flex items-center rounded-lg border border-[var(--sand-400)] bg-white px-4 py-2 text-sm font-semibold text-[var(--green-800)] transition hover:bg-[var(--sand-100)]"
+            >
+              LLM Course-Writing Guide
+            </Link>
+
+            <Link
+              href="/"
+              className="inline-flex items-center rounded-lg border border-[var(--sand-400)] bg-white px-4 py-2 text-sm font-semibold text-[var(--green-800)] transition hover:bg-[var(--sand-100)]"
+            >
+              Home
+            </Link>
+          </div>
         </div>
 
         <CourseCatalogGrid courses={courses} />

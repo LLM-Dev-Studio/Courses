@@ -411,6 +411,18 @@ async function resolveCourseEntry(entryName: string): Promise<ResolvedCourseEntr
   return { coursePath, introFile, introRaw, metadata, tags, resolvedId };
 }
 
+export async function getCourseFolderPath(courseId: string): Promise<string | null> {
+  const entries = await fs.readdir(COURSES_ROOT, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const { coursePath, resolvedId } = await resolveCourseEntry(entry.name);
+    if (resolvedId === courseId) return coursePath;
+  }
+
+  return null;
+}
+
 let listCoursesCache: CourseSummary[] | null = null;
 
 export async function listCourses(): Promise<CourseSummary[]> {
