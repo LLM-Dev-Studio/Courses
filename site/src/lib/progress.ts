@@ -3,6 +3,21 @@ export type CourseProgressState = {
   lastLessonId?: string;
 };
 
+export function subscribeToProgressStore(callback: () => void): () => void {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  const handler = () => callback();
+  window.addEventListener("storage", handler);
+  window.addEventListener("course-progress-updated", handler);
+
+  return () => {
+    window.removeEventListener("storage", handler);
+    window.removeEventListener("course-progress-updated", handler);
+  };
+}
+
 export type CourseRewardTier = "bronze" | "silver" | "gold" | "platinum";
 
 export type CourseOutcomeState = {

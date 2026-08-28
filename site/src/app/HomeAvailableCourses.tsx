@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-import { readCourseOutcome } from "@/lib/progress";
+import { readCourseOutcome, subscribeToProgressStore } from "@/lib/progress";
 
 type HomeCourseSummary = {
   id: string;
@@ -26,13 +26,7 @@ export default function HomeAvailableCourses({ courses }: { courses: HomeCourseS
     };
 
     refreshClosedCourses();
-    window.addEventListener("storage", refreshClosedCourses);
-    window.addEventListener("course-progress-updated", refreshClosedCourses);
-
-    return () => {
-      window.removeEventListener("storage", refreshClosedCourses);
-      window.removeEventListener("course-progress-updated", refreshClosedCourses);
-    };
+    return subscribeToProgressStore(refreshClosedCourses);
   }, [courses]);
 
   const availableCourses = useMemo(
