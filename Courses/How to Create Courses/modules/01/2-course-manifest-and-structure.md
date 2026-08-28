@@ -5,7 +5,7 @@ A course is discovered from its folder and `course.json` manifest.
 ## Example Layout
 
 ```text
-courses/
+Courses/
   How to Create Courses/
     course.json
     1-intro.md
