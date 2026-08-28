@@ -1,5 +1,7 @@
 # Deploying Your Change
 
+If you started from the deployed Course Authoring Tool, first download the starter ZIP, unpack it, and place the course folder under `Courses/` in your local clone. Once your lessons and manifest are ready, use the normal branch and pull request workflow below.
+
 Merging to `main` is not the last step — it triggers a deployment.
 
 ## What Happens After Merge
