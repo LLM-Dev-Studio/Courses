@@ -7,6 +7,7 @@ import {
   saveCourseOutcome,
   saveProgress,
   readProgress,
+  subscribeToProgressStore,
 } from "@/lib/progress";
 
 describe("progress helpers", () => {
@@ -14,6 +15,21 @@ describe("progress helpers", () => {
 
   beforeEach(() => {
     window.localStorage.clear();
+  });
+
+  describe("subscribeToProgressStore", () => {
+    it("invokes the callback on storage and course-progress-updated events, and stops after unsubscribe", () => {
+      const callback = vi.fn();
+      const unsubscribe = subscribeToProgressStore(callback);
+
+      window.dispatchEvent(new Event("storage"));
+      window.dispatchEvent(new Event("course-progress-updated"));
+      expect(callback).toHaveBeenCalledTimes(2);
+
+      unsubscribe();
+      window.dispatchEvent(new Event("course-progress-updated"));
+      expect(callback).toHaveBeenCalledTimes(2);
+    });
   });
 
   it("parses valid progress snapshots", () => {

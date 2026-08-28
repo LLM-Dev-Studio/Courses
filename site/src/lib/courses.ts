@@ -384,6 +384,33 @@ export function mergeCourseMetadata(base: CourseMetadata, override: CourseMetada
   return merged;
 }
 
+type ResolvedCourseEntry = {
+  coursePath: string;
+  introFile: string;
+  introRaw: string | null;
+  metadata: CourseMetadata;
+  tags: string[];
+  resolvedId: string;
+};
+
+// Both listCourses and getCourseById need to turn a course folder into its
+// resolved metadata (manifest overlaid with intro frontmatter); keep that
+// resolution in one place so the two stay consistent.
+async function resolveCourseEntry(entryName: string): Promise<ResolvedCourseEntry> {
+  const coursePath = path.join(COURSES_ROOT, entryName);
+  const manifestMetadata = toCourseMetadata(await readManifest(coursePath));
+  const introFile = manifestMetadata.introFile ?? "1-intro.md";
+  const introRaw = await readMarkdownOptional(path.join(coursePath, introFile));
+  const introMetadata = toIntroFrontmatterMetadata(introRaw);
+  const metadata = mergeCourseMetadata(manifestMetadata, introMetadata);
+  // introMetadata.tags is always an array (never undefined), so a plain merge
+  // would let an intro file with no tags silently wipe out manifest tags.
+  const tags = introMetadata.tags?.length ? introMetadata.tags : manifestMetadata.tags ?? [];
+  const resolvedId = metadata.courseId ?? slugify(entryName);
+
+  return { coursePath, introFile, introRaw, metadata, tags, resolvedId };
+}
+
 let listCoursesCache: CourseSummary[] | null = null;
 
 export async function listCourses(): Promise<CourseSummary[]> {
@@ -395,19 +422,13 @@ export async function listCourses(): Promise<CourseSummary[]> {
   for (const entry of entries) {
     if (!entry.isDirectory()) continue;
 
-    const coursePath = path.join(COURSES_ROOT, entry.name);
-    const manifestMetadata = toCourseMetadata(await readManifest(coursePath));
-    const introFile = manifestMetadata.introFile ?? "1-intro.md";
-    const introRaw = await readMarkdownOptional(path.join(coursePath, introFile));
-    const introMetadata = toIntroFrontmatterMetadata(introRaw);
-    const metadata = mergeCourseMetadata(manifestMetadata, introMetadata);
+    const { coursePath, introFile, metadata, tags, resolvedId } = await resolveCourseEntry(entry.name);
     const totalLessons = await countDiscoveredLessons(coursePath, introFile);
-    const tags = introMetadata.tags?.length ? introMetadata.tags : manifestMetadata.tags ?? [];
     const stats = await fs.stat(coursePath);
     const createdAt = stats.birthtimeMs;
 
     summaries.push({
-      id: metadata.courseId ?? slugify(entry.name),
+      id: resolvedId,
       title: metadata.title ?? prettifyTitle(entry.name),
       subtitle: metadata.subtitle,
       audience: metadata.audience,
@@ -426,18 +447,21 @@ const courseByIdCache = new Map<string, CourseData | null>();
 export async function getCourseById(courseId: string): Promise<CourseData | null> {
   if (isProd && courseByIdCache.has(courseId)) return courseByIdCache.get(courseId)!;
   const entries = await fs.readdir(COURSES_ROOT, { withFileTypes: true });
+  const directoryEntries = entries.filter((entry) => entry.isDirectory());
 
-  for (const entry of entries) {
-    if (!entry.isDirectory()) continue;
+  // The common case is an unoverridden course ID, i.e. slugify(folder name).
+  // Try folders whose slug already matches first so a lookup only has to
+  // resolve metadata for every course when courseId comes from a manifest
+  // override that doesn't match its own folder name.
+  const likelyMatches = directoryEntries.filter((entry) => slugify(entry.name) === courseId);
+  const likelyMatchNames = new Set(likelyMatches.map((entry) => entry.name));
+  const orderedEntries = [
+    ...likelyMatches,
+    ...directoryEntries.filter((entry) => !likelyMatchNames.has(entry.name)),
+  ];
 
-    const coursePath = path.join(COURSES_ROOT, entry.name);
-    const manifestMetadata = toCourseMetadata(await readManifest(coursePath));
-    const introFile = manifestMetadata.introFile ?? "1-intro.md";
-    const introRaw = await readMarkdownOptional(path.join(coursePath, introFile));
-    const introMetadata = toIntroFrontmatterMetadata(introRaw);
-    const metadata = mergeCourseMetadata(manifestMetadata, introMetadata);
-
-    const resolvedId = metadata.courseId ?? slugify(entry.name);
+  for (const entry of orderedEntries) {
+    const { coursePath, introRaw, metadata, resolvedId } = await resolveCourseEntry(entry.name);
     if (resolvedId !== courseId) continue;
 
     const introLesson: CourseLesson = introRaw

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-import { getCompletedCount, readCourseOutcome } from "@/lib/progress";
+import { getCompletedCount, readCourseOutcome, subscribeToProgressStore } from "@/lib/progress";
 import { filterCourses } from "@/lib/course-filter";
 
 type CourseSummary = {
@@ -64,13 +64,7 @@ export default function CourseCatalogGrid({ courses }: { courses: CourseSummary[
     };
 
     refreshProgress();
-    window.addEventListener("storage", refreshProgress);
-    window.addEventListener("course-progress-updated", refreshProgress);
-
-    return () => {
-      window.removeEventListener("storage", refreshProgress);
-      window.removeEventListener("course-progress-updated", refreshProgress);
-    };
+    return subscribeToProgressStore(refreshProgress);
   }, [courses]);
 
   return (

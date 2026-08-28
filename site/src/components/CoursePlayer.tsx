@@ -19,6 +19,7 @@ import {
   readQuizScore,
   saveCourseOutcome,
   saveProgress,
+  subscribeToProgressStore,
 } from "@/lib/progress";
 
 type ModuleItem = {
@@ -65,21 +66,6 @@ interface CoursePlayerProps {
 
 function stripLeadingHeading(markdown: string): string {
   return markdown.replace(/^\s*#\s+.+\r?\n+/, "");
-}
-
-function subscribeToProgressStore(callback: () => void): () => void {
-  if (typeof window === "undefined") {
-    return () => {};
-  }
-
-  const handler = () => callback();
-  window.addEventListener("storage", handler);
-  window.addEventListener("course-progress-updated", handler);
-
-  return () => {
-    window.removeEventListener("storage", handler);
-    window.removeEventListener("course-progress-updated", handler);
-  };
 }
 
 export default function CoursePlayer({
